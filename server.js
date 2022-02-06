@@ -21,5 +21,5 @@ app.use('/', htmlRoutes);
 
 //listens to connections on port 3001
 app.listen(PORT, () => {
-    console.log('API server is running on port ${PORT}');
+    console.log(`API server is running on ${PORT}`);
 });
