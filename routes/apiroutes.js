@@ -1,35 +1,41 @@
 const router = require('express').Router();
-const notes = require("./db/db.json");
-const data = require('./db/save');
+const notes = require("../db/db");
+const fs = require('fs');
 
-
+fs.readFile('db/db.json', 'utf8', (err, data) => {
+    if (err) throw err;
+const notes = JSON.parse(data)
+});
 
 router.get('/notes', (req, res) => {
-    data
-    .getNote()
-    .then(notes => 
-    res.json(notes))
-    .catch(err => res.status(500).json(err));
+   res.json(notes)
 
 });
 
-router.post('notes', (req, res) => {
-    data
-    .postNote(req.body)
-    .then((note) => 
-    res.json(note))
-    .catch(err => res.status(500).json(err));
+router.post('/notes', (req, res) => {
+let newNote = req.body
+notes.push(newNote)
+updatedb()
+return console.log('Added a new note:' +newNote.title)
 });
+router.get('/notes/:id', (req, res) => {
+    res.json(notes[req.params.id])
+})
 
 //BONUS Delete request;
 
-router.delete('notes/:id', (req, res) => {
-    data
-    .deleteNote(req.params.id)
-    .then(() =>
-     res.json( { ok:true }))
-    .catch(err => res.status(500).json(err));
+router.delete('/notes/:id', (req, res) => {
+    notes.splice(req.params.id, 1)
+   updatedb()
+   console.log('Deleted selected note!')
 });
+
+function updatedb() {
+    fs.writeFile('db/db.json', JSON.stringify(notes), err =>
+    { if (err) throw err;
+    return true;
+    })
+}
 
 module.exports = router;
 
