@@ -39,6 +39,13 @@ It will run the server on port '3001' which can be accessed by opening 'localhos
 This will allow you to run the application without issues. <br>
 Or, you can go directly to the deployed link at : https://jaimit-note-taker.herokuapp.com
 
+## Technologies Used
+<li> Node
+<li> Express
+<li> NPM
+<li> Inquirer
+<li> UUID
+
 ## License
 Available for use under. <br>
 ![GitHub](https://img.shields.io/github/license/jaimitpatel/NoteTaker-app)
